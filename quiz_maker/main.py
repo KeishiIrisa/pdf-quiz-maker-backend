@@ -9,7 +9,6 @@ def read_root():
 
 @app.post("/uploadfile")
 async def create_upload_file(file: UploadFile = File(...)):
-    contents = await file.read()
-    markdown_text = convert_pdf_to_makrdown(contents)
-    return {"filename": file.filename, "markdown": markdown_text[:20]}
+    markdown_text = convert_pdf_to_makrdown(file)
+    return {"filename": file.filename, "markdown": markdown_text}
 
