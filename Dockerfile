@@ -2,9 +2,8 @@ FROM python:3.11
 
 ENV PYTHONUNBUFFERED True \
     APP_HOME /app \
-    POETRY_VIRTUALENVS_CREATE false
-
-
+    POETRY_VIRTUALENVS_CREATE false \
+    PORT 8000
 
 RUN apt-get update && apt-get install -y curl poppler-utils git openssh-client
 
@@ -20,4 +19,5 @@ RUN poetry install --no-root
 
 COPY ./pdf_quiz_maker_backend ./pdf_quiz_maker_backend
 
-CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 0 genote_llm.main:app -k uvicorn.workers.UvicornWorker --timeout 1800
+# CMD exec uvicorn pdf_quiz_maker_backend.main:app --host=0.0.0.0 --port=$PORT
+CMD uvicorn pdf_quiz_maker_backend.main:app --host=0.0.0.0 --reload

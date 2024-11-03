@@ -252,6 +252,51 @@ files = [
 typing-extensions = ">=4.6.0,<4.7.0 || >4.7.0"
 
 [[package]]
+name = "pymupdf"
+version = "1.24.13"
+description = "A high performance Python library for data extraction, analysis, conversion & manipulation of PDF (and other) documents."
+category = "main"
+optional = false
+python-versions = ">=3.9"
+files = [
+    {file = "PyMuPDF-1.24.13-cp39-abi3-macosx_10_9_x86_64.whl", hash = "sha256:c11bb9198af69d490b4b346421db827d875a28fbc760d239e691d4b3ed12b5ad"},
+    {file = "PyMuPDF-1.24.13-cp39-abi3-macosx_11_0_arm64.whl", hash = "sha256:240d5c43daa9278db50d609162b48f673ab256d7e5c73eea67af517c1fc2d47c"},
+    {file = "PyMuPDF-1.24.13-cp39-abi3-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:e4c8808e62afbbde0f7b9c4151c4b1a5735911c2d39c34332860df600dba76f8"},
+    {file = "PyMuPDF-1.24.13-cp39-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:c830610e4fde237fcf0532f1f8c1381453f48c164a5eadd0c6e5fd0bea1ca8e3"},
+    {file = "PyMuPDF-1.24.13-cp39-abi3-musllinux_1_2_x86_64.whl", hash = "sha256:4520558580ac6b5a7164fda29fbc14e39d3114fd803420721500edbf47d04872"},
+    {file = "PyMuPDF-1.24.13-cp39-abi3-win32.whl", hash = "sha256:ab22828d4fc205791ef1332a64893cbfc38cd9c331c5f46ae4537372ffee6fc1"},
+    {file = "PyMuPDF-1.24.13-cp39-abi3-win_amd64.whl", hash = "sha256:ec17914e4a560f4070212a2e84db5cc8b561d85d1ead193605a22f9561b03148"},
+    {file = "PyMuPDF-1.24.13.tar.gz", hash = "sha256:6ec3ab3c6d5cba60bfcf58daaa2d1a5b700b0366ce52be666445007351461fa4"},
+]
+
+[[package]]
+name = "pymupdf4llm"
+version = "0.0.17"
+description = "PyMuPDF Utilities for LLM/RAG"
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "pymupdf4llm-0.0.17-py3-none-any.whl", hash = "sha256:26de9996945f15e3ca507908f80dc18a959f5b5214bb2e302c7f7034089665a0"},
+    {file = "pymupdf4llm-0.0.17.tar.gz", hash = "sha256:27287ef9fe0217cf37841a3ef2bcf70da2553c43d95ea39b664a6de6485678c3"},
+]
+
+[package.dependencies]
+pymupdf = ">=1.24.10"
+
+[[package]]
+name = "python-multipart"
+version = "0.0.17"
+description = "A streaming multipart parser for Python"
+category = "main"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "python_multipart-0.0.17-py3-none-any.whl", hash = "sha256:15dc4f487e0a9476cc1201261188ee0940165cffc94429b6fc565c4d3045cb5d"},
+    {file = "python_multipart-0.0.17.tar.gz", hash = "sha256:41330d831cae6e2f22902704ead2826ea038d0419530eadff3ea80175aec5538"},
+]
+
+[[package]]
 name = "sniffio"
 version = "1.3.1"
 description = "Sniff out which async library your code is running under"
@@ -317,4 +362,4 @@ standard = ["colorama (>=0.4)", "httptools (>=0.5.0)", "python-dotenv (>=0.13)",
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "a31315f1e680966da8da06a2fb5f4a95960ac12a330a7363d6ce0bb223a3a9a3"
+content-hash = "ca6ad1fc6b35c8184fd81e6c59a9856f78ec39434153740d0d9769b8a978e1df"
