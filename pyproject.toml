@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "pdf-quiz-maker-backend"
+version = "0.1.0"
+description = ""
+authors = ["KeishiIrisa <keishi.irisa@gmail.com>"]
+readme = "README.md"
+packages = [{include = "pdf_quiz_maker_backend"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+fastapi = "^0.115.4"
+uvicorn = "^0.32.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
