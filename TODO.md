@@ -32,6 +32,16 @@
 1. pdf ファイルが新しいものだったら、embedding して storage を作る
 2. 2 回め以降の RAG だったら、保存した storage から利用する(参考)[https://youtu.be/D4MjdLDEIpc?si=liU6IQQHBO1JRSqu]
 
+# DB architecture
+
+## Astra DB
+
+1.
+
+## SupaBase
+
+1.
+
 # Error
 
 - Dockerfile で ENV を指定しても正しく反映されない（WORKDIR や PORT など）

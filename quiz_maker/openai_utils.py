@@ -1,14 +1,16 @@
-from dotenv import load_dotenv
 import os
-import openai
-from fastapi import UploadFile
-import pymupdf4llm
 import tempfile
+from typing import List
+
+from dotenv import load_dotenv
+from fastapi import UploadFile
+from pydantic import BaseModel
+
+import openai
+import pymupdf4llm
 from llama_index.core import GPTVectorStoreIndex, Settings, PromptTemplate
 from llama_index.embeddings.openai import OpenAIEmbedding
 from llama_index.llms.openai import OpenAI
-from pydantic import BaseModel
-from typing import List
 
 load_dotenv()
 

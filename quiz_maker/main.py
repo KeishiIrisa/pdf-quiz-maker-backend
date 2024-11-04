@@ -1,5 +1,4 @@
 from fastapi import FastAPI, UploadFile, File, Form
-from quiz_maker.pdf_to_markdown import convert_pdf_to_makrdown
 from quiz_maker.openai_utils import answer_question_from_pdf
 from dotenv import load_dotenv
 import openai
