@@ -16,7 +16,7 @@ def read_root():
     return {"Message": "Hello keishi!"}
 
 @app.post("/uploadfile")
-async def create_upload_file(file: UploadFile = File(...), question: str = Form(...)):
-    answer = answer_question_from_pdf(file, question)
+async def create_upload_file(file: UploadFile = File(...), learning_content: str = Form(...)):
+    answer = answer_question_from_pdf(file, learning_content)
     return {"filename": file.filename, "answer": answer}
 
