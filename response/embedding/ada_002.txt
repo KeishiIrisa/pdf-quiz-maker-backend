@@ -1,0 +1,158 @@
+{
+  "filename": "sample.pdf",
+  "answer": {
+    "response": "消化、解糖、ミトコンドリアでのエネルギー産生",
+    "source_nodes": [
+      {
+        "node": {
+          "id_": "0f06604c-af2e-4e23-b90c-0fbdfb50db8b",
+          "embedding": null,
+          "extra_info": {
+            "format": "PDF 1.4",
+            "title": "生命化学I-第６回",
+            "author": "Jumpei Morimoto",
+            "subject": "",
+            "keywords": "",
+            "creator": "PowerPoint",
+            "producer": "macOS バージョン10.15.7（ビルド19H2026） Quartz PDFContext",
+            "creationDate": "D:20241023021745Z00'00'",
+            "modDate": "D:20241023021745Z00'00'",
+            "trapped": "",
+            "encryption": null,
+            "page": 4,
+            "total_pages": 13,
+            "file_path": "/tmp/tmp467tvuv9.pdf"
+          },
+          "excluded_embed_metadata_keys": [],
+          "excluded_llm_metadata_keys": [],
+          "relationships": {
+            "1": {
+              "node_id": "0cd499be-6189-4b5c-be9d-b42074e1ae84",
+              "node_type": "4",
+              "metadata": {
+                "format": "PDF 1.4",
+                "title": "生命化学I-第６回",
+                "author": "Jumpei Morimoto",
+                "subject": "",
+                "keywords": "",
+                "creator": "PowerPoint",
+                "producer": "macOS バージョン10.15.7（ビルド19H2026） Quartz PDFContext",
+                "creationDate": "D:20241023021745Z00'00'",
+                "modDate": "D:20241023021745Z00'00'",
+                "trapped": "",
+                "encryption": null,
+                "page": 4,
+                "total_pages": 13,
+                "file_path": "/tmp/tmp467tvuv9.pdf"
+              },
+              "hash": "7efd3d6986ef9aae1ae159862bba6ea8ecb2adec8948366791d951de3354969a",
+              "class_name": "RelatedNodeInfo"
+            }
+          },
+          "text": "## 異化の三段階\n\n##### • 消化\n\n • 酵素によって高分子が単量体に分解される.\n\n • 解糖\n\n • グルコース１分子がピルビン酸２分子に変換される.\n\n • ミトコンドリアでのエネルギー産生\n\n • クエン酸回路と電子伝達系によって大量のATPが生成\n\n\n4\n\n\n-----",
+          "mimetype": "text/plain",
+          "start_char_idx": 0,
+          "end_char_idx": 145,
+          "text_template": "{metadata_str}\n\n{content}",
+          "metadata_template": "{key}: {value}",
+          "metadata_seperator": "\n",
+          "class_name": "TextNode"
+        },
+        "score": 0.8287725456593223,
+        "class_name": "NodeWithScore"
+      },
+      {
+        "node": {
+          "id_": "b2266203-ba78-49ce-a888-c198648e9f6b",
+          "embedding": null,
+          "extra_info": {
+            "format": "PDF 1.4",
+            "title": "生命化学I-第６回",
+            "author": "Jumpei Morimoto",
+            "subject": "",
+            "keywords": "",
+            "creator": "PowerPoint",
+            "producer": "macOS バージョン10.15.7（ビルド19H2026） Quartz PDFContext",
+            "creationDate": "D:20241023021745Z00'00'",
+            "modDate": "D:20241023021745Z00'00'",
+            "trapped": "",
+            "encryption": null,
+            "page": 12,
+            "total_pages": 13,
+            "file_path": "/tmp/tmp467tvuv9.pdf"
+          },
+          "excluded_embed_metadata_keys": [],
+          "excluded_llm_metadata_keys": [],
+          "relationships": {
+            "1": {
+              "node_id": "206faa56-8954-410a-aa28-eaad619186b1",
+              "node_type": "4",
+              "metadata": {
+                "format": "PDF 1.4",
+                "title": "生命化学I-第６回",
+                "author": "Jumpei Morimoto",
+                "subject": "",
+                "keywords": "",
+                "creator": "PowerPoint",
+                "producer": "macOS バージョン10.15.7（ビルド19H2026） Quartz PDFContext",
+                "creationDate": "D:20241023021745Z00'00'",
+                "modDate": "D:20241023021745Z00'00'",
+                "trapped": "",
+                "encryption": null,
+                "page": 12,
+                "total_pages": 13,
+                "file_path": "/tmp/tmp467tvuv9.pdf"
+              },
+              "hash": "f6f0f6f70a12defe339aae7ecc1c61fb5461db9bd594282f58365a6e3e54528a",
+              "class_name": "RelatedNodeInfo"
+            }
+          },
+          "text": "## まとめ\n\n##### • 細胞は, 糖などの有機分子を段階的に酸化して, エネルギーを取り出す.\n\n • エネルギーは, ATPやNADHなどの活性運搬体として一時的に蓄えられる.\n\n • 食物分子は, 消化・解糖・ミトコンドリアでの反応を経て, CO2とH2Oへと酸化される.\n\n • 解糖系では, グルコース１分子がピルビン酸２分子に変換される.\n\n • ミトコンドリア・マトリックスでは, ピルビン酸がアセチルCoAの生成に使われる.\n\n • アセチルCoAのアセチル基は, クエン酸に変換されたあと, クエン酸回路によって, CO2\n まで酸化される.\n\n • 解糖系やクエン酸回路で生じたNADHやFADH2は, 電子伝達系で多量のATP合成に使わ\n れる.\n\n\n12\n\n\n-----",
+          "mimetype": "text/plain",
+          "start_char_idx": 0,
+          "end_char_idx": 350,
+          "text_template": "{metadata_str}\n\n{content}",
+          "metadata_template": "{key}: {value}",
+          "metadata_seperator": "\n",
+          "class_name": "TextNode"
+        },
+        "score": 0.8075264065170537,
+        "class_name": "NodeWithScore"
+      }
+    ],
+    "metadata": {
+      "0f06604c-af2e-4e23-b90c-0fbdfb50db8b": {
+        "format": "PDF 1.4",
+        "title": "生命化学I-第６回",
+        "author": "Jumpei Morimoto",
+        "subject": "",
+        "keywords": "",
+        "creator": "PowerPoint",
+        "producer": "macOS バージョン10.15.7（ビルド19H2026） Quartz PDFContext",
+        "creationDate": "D:20241023021745Z00'00'",
+        "modDate": "D:20241023021745Z00'00'",
+        "trapped": "",
+        "encryption": null,
+        "page": 4,
+        "total_pages": 13,
+        "file_path": "/tmp/tmp467tvuv9.pdf"
+      },
+      "b2266203-ba78-49ce-a888-c198648e9f6b": {
+        "format": "PDF 1.4",
+        "title": "生命化学I-第６回",
+        "author": "Jumpei Morimoto",
+        "subject": "",
+        "keywords": "",
+        "creator": "PowerPoint",
+        "producer": "macOS バージョン10.15.7（ビルド19H2026） Quartz PDFContext",
+        "creationDate": "D:20241023021745Z00'00'",
+        "modDate": "D:20241023021745Z00'00'",
+        "trapped": "",
+        "encryption": null,
+        "page": 12,
+        "total_pages": 13,
+        "file_path": "/tmp/tmp467tvuv9.pdf"
+      }
+    }
+  }
+}

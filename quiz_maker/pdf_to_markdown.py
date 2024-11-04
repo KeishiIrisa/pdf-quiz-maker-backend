@@ -7,5 +7,5 @@ def convert_pdf_to_makrdown(pdf_file: UploadFile) -> str:
         tmp.write(pdf_file.file.read())
         tmp_path = tmp.name
     md_text = pymupdf4llm.to_markdown(tmp_path)
-    return md_text[:50]
+    return md_text
 
