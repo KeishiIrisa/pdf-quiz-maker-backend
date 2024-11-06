@@ -2,72 +2,15 @@
   "filename": "embed_sample.pdf",
   "answer": {
     "response": {
-      "question": "異化の3段階を説明せよ。",
-      "answer": "消化、解糖、ミトコンドリアでのエネルギー産生の3段階がある。",
-      "description": "異化は、物質を分解してエネルギーを得る過程であり、まず消化によって高分子が単量体に分解され、次に解糖でグルコースがピルビン酸に変換され、最後にミトコンドリアでATPが生成される。"
+      "question": "異化の三段階を説明せよ。",
+      "answer": "異化の三段階は、消化、解糖、ミトコンドリアでのエネルギー産生である。消化では酵素によって高分子が単量体に分解され、解糖ではグルコースがピルビン酸に変換される。最後に、ミトコンドリアでのエネルギー産生では、クエン酸回路と電子伝達系によって大量のATPが生成される。",
+      "description": "異化は、細胞が食物からエネルギーを得る過程であり、まず消化によって大きな分子が小さな単位に分解される。次に、解糖によってグルコースがエネルギーを放出しながらピルビン酸に変換される。最後に、ミトコンドリア内での反応により、ATPが大量に生成され、細胞のエネルギー源となる。",
+      "sources": []
     },
     "source_nodes": [
       {
         "node": {
-          "id_": "d8d9bbd1-981c-4d1b-a471-ea204a6ab54c",
-          "embedding": null,
-          "extra_info": {
-            "format": "PDF 1.6",
-            "title": "生命化学I-第６回",
-            "author": "Jumpei Morimoto",
-            "subject": "",
-            "keywords": "",
-            "creator": "PowerPoint",
-            "producer": "macOS バージョン10.15.7（ビルド19H2026） Quartz PDFContext",
-            "creationDate": "D:20241023021745Z00'00'",
-            "modDate": "D:20241023021745Z00'00'",
-            "trapped": "",
-            "encryption": null,
-            "page": 4,
-            "total_pages": 4,
-            "file_path": "/tmp/tmpoahvdv26.pdf"
-          },
-          "excluded_embed_metadata_keys": [],
-          "excluded_llm_metadata_keys": [],
-          "relationships": {
-            "1": {
-              "node_id": "722ceb97-6685-4c86-9166-8d19cd44a281",
-              "node_type": "4",
-              "metadata": {
-                "format": "PDF 1.6",
-                "title": "生命化学I-第６回",
-                "author": "Jumpei Morimoto",
-                "subject": "",
-                "keywords": "",
-                "creator": "PowerPoint",
-                "producer": "macOS バージョン10.15.7（ビルド19H2026） Quartz PDFContext",
-                "creationDate": "D:20241023021745Z00'00'",
-                "modDate": "D:20241023021745Z00'00'",
-                "trapped": "",
-                "encryption": null,
-                "page": 4,
-                "total_pages": 4,
-                "file_path": "/tmp/tmpoahvdv26.pdf"
-              },
-              "hash": "16752149e74e8e300a4f3f0a012175196c6311fbb64060280c03adcc2e092741",
-              "class_name": "RelatedNodeInfo"
-            }
-          },
-          "text": "## 異化の三段階\n\n#### • 消化\n\n • 酵素によって高分子が単量体に分解される.\n\n • 解糖\n\n • グルコース１分子がピルビン酸２分子に変換される.\n\n • ミトコンドリアでのエネルギー産生\n\n • クエン酸回路と電子伝達系によって大量のATPが生成\n\n\n4\n\n\n-----",
-          "mimetype": "text/plain",
-          "start_char_idx": 0,
-          "end_char_idx": 144,
-          "text_template": "{metadata_str}\n\n{content}",
-          "metadata_template": "{key}: {value}",
-          "metadata_seperator": "\n",
-          "class_name": "TextNode"
-        },
-        "score": 0.35884444989444375,
-        "class_name": "NodeWithScore"
-      },
-      {
-        "node": {
-          "id_": "faf7c24d-bd82-4fc5-b503-83fcb8e5e04f",
+          "id_": "f8b07eb3-6204-465b-af7e-de35a40effdd",
           "embedding": null,
           "extra_info": {
             "format": "PDF 1.6",
@@ -83,13 +26,13 @@
             "encryption": null,
             "page": 2,
             "total_pages": 4,
-            "file_path": "/tmp/tmpoahvdv26.pdf"
+            "file_path": "/tmp/tmpq9fm0gnz.pdf"
           },
           "excluded_embed_metadata_keys": [],
           "excluded_llm_metadata_keys": [],
           "relationships": {
             "1": {
-              "node_id": "2ca1a29a-b273-4457-bc6d-538c3fd56cb0",
+              "node_id": "d81ab08b-6314-40c3-a5ca-88976dc3007c",
               "node_type": "4",
               "metadata": {
                 "format": "PDF 1.6",
@@ -105,9 +48,9 @@
                 "encryption": null,
                 "page": 2,
                 "total_pages": 4,
-                "file_path": "/tmp/tmpoahvdv26.pdf"
+                "file_path": "/tmp/tmpq9fm0gnz.pdf"
               },
-              "hash": "6a6be50b15741923f50ba227dd4bf17c1066c7fbcf49629bd4b5dab1ce2c2ea9",
+              "hash": "8b5c2489b97f4164745e5c414d6b31c2a56940f2e9bf8c785888ae1987b68882",
               "class_name": "RelatedNodeInfo"
             }
           },
@@ -120,28 +63,70 @@
           "metadata_seperator": "\n",
           "class_name": "TextNode"
         },
-        "score": 0.34974624392557696,
+        "score": 0.3028647976701367,
+        "class_name": "NodeWithScore"
+      },
+      {
+        "node": {
+          "id_": "eefded96-2b39-4149-ad96-b7de1f73337a",
+          "embedding": null,
+          "extra_info": {
+            "format": "PDF 1.6",
+            "title": "生命化学I-第６回",
+            "author": "Jumpei Morimoto",
+            "subject": "",
+            "keywords": "",
+            "creator": "PowerPoint",
+            "producer": "macOS バージョン10.15.7（ビルド19H2026） Quartz PDFContext",
+            "creationDate": "D:20241023021745Z00'00'",
+            "modDate": "D:20241023021745Z00'00'",
+            "trapped": "",
+            "encryption": null,
+            "page": 4,
+            "total_pages": 4,
+            "file_path": "/tmp/tmpq9fm0gnz.pdf"
+          },
+          "excluded_embed_metadata_keys": [],
+          "excluded_llm_metadata_keys": [],
+          "relationships": {
+            "1": {
+              "node_id": "bbbaa4f6-5b47-4ae8-8fc1-898b2950dea6",
+              "node_type": "4",
+              "metadata": {
+                "format": "PDF 1.6",
+                "title": "生命化学I-第６回",
+                "author": "Jumpei Morimoto",
+                "subject": "",
+                "keywords": "",
+                "creator": "PowerPoint",
+                "producer": "macOS バージョン10.15.7（ビルド19H2026） Quartz PDFContext",
+                "creationDate": "D:20241023021745Z00'00'",
+                "modDate": "D:20241023021745Z00'00'",
+                "trapped": "",
+                "encryption": null,
+                "page": 4,
+                "total_pages": 4,
+                "file_path": "/tmp/tmpq9fm0gnz.pdf"
+              },
+              "hash": "d751ef3997b7e2c9eb81fef0f1229a135bc418eed8f232bc992bfbf758a0be7e",
+              "class_name": "RelatedNodeInfo"
+            }
+          },
+          "text": "## 異化の三段階\n\n#### • 消化\n\n • 酵素によって高分子が単量体に分解される.\n\n • 解糖\n\n • グルコース１分子がピルビン酸２分子に変換される.\n\n • ミトコンドリアでのエネルギー産生\n\n • クエン酸回路と電子伝達系によって大量のATPが生成\n\n\n4\n\n\n-----",
+          "mimetype": "text/plain",
+          "start_char_idx": 0,
+          "end_char_idx": 144,
+          "text_template": "{metadata_str}\n\n{content}",
+          "metadata_template": "{key}: {value}",
+          "metadata_seperator": "\n",
+          "class_name": "TextNode"
+        },
+        "score": 0.2862911909113435,
         "class_name": "NodeWithScore"
       }
     ],
     "metadata": {
-      "d8d9bbd1-981c-4d1b-a471-ea204a6ab54c": {
-        "format": "PDF 1.6",
-        "title": "生命化学I-第６回",
-        "author": "Jumpei Morimoto",
-        "subject": "",
-        "keywords": "",
-        "creator": "PowerPoint",
-        "producer": "macOS バージョン10.15.7（ビルド19H2026） Quartz PDFContext",
-        "creationDate": "D:20241023021745Z00'00'",
-        "modDate": "D:20241023021745Z00'00'",
-        "trapped": "",
-        "encryption": null,
-        "page": 4,
-        "total_pages": 4,
-        "file_path": "/tmp/tmpoahvdv26.pdf"
-      },
-      "faf7c24d-bd82-4fc5-b503-83fcb8e5e04f": {
+      "f8b07eb3-6204-465b-af7e-de35a40effdd": {
         "format": "PDF 1.6",
         "title": "生命化学I-第６回",
         "author": "Jumpei Morimoto",
@@ -155,7 +140,23 @@
         "encryption": null,
         "page": 2,
         "total_pages": 4,
-        "file_path": "/tmp/tmpoahvdv26.pdf"
+        "file_path": "/tmp/tmpq9fm0gnz.pdf"
+      },
+      "eefded96-2b39-4149-ad96-b7de1f73337a": {
+        "format": "PDF 1.6",
+        "title": "生命化学I-第６回",
+        "author": "Jumpei Morimoto",
+        "subject": "",
+        "keywords": "",
+        "creator": "PowerPoint",
+        "producer": "macOS バージョン10.15.7（ビルド19H2026） Quartz PDFContext",
+        "creationDate": "D:20241023021745Z00'00'",
+        "modDate": "D:20241023021745Z00'00'",
+        "trapped": "",
+        "encryption": null,
+        "page": 4,
+        "total_pages": 4,
+        "file_path": "/tmp/tmpq9fm0gnz.pdf"
       }
     }
   }
