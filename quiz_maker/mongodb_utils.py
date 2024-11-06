@@ -1,5 +1,6 @@
 from pymongo import MongoClient
 from dotenv import load_dotenv
+from typing import Dict
 import os
 
 load_dotenv()
@@ -11,6 +12,7 @@ db = client.get_database("pdf_quiz_maker_db")
 quizzes_collection = db["quizzes"]
 
 
-def insert_quiz(quiz):
+def insert_quiz(quiz: Dict):
     result = quizzes_collection.insert_one(quiz)
-    return result.inserted_id
+    return str(result.inserted_id)
+
