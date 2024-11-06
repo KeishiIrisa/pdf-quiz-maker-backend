@@ -1,7 +1,8 @@
-from pymongo import MongoClient
-from dotenv import load_dotenv
-from typing import Dict
 import os
+from typing import Dict, List
+
+from dotenv import load_dotenv
+from pymongo import MongoClient
 
 load_dotenv()
 
@@ -16,3 +17,10 @@ def insert_quiz(quiz: Dict):
     result = quizzes_collection.insert_one(quiz)
     return str(result.inserted_id)
 
+def fetch_all_quizzes() -> List[Dict]:
+    results = quizzes_collection.find()
+    quizzes = []
+    for result in results:
+        result["_id"] = str(result["_id"])  # ObjectIdを文字列に変換
+        quizzes.append(result)
+    return quizzes

@@ -6,7 +6,6 @@ from typing import List
 from dotenv import load_dotenv
 from fastapi import UploadFile
 from pydantic import BaseModel
-
 import openai
 import pymupdf4llm
 from llama_index.core import GPTVectorStoreIndex, Settings, PromptTemplate
@@ -15,20 +14,11 @@ from llama_index.embeddings.openai import OpenAIEmbedding
 from llama_index.llms.openai import OpenAI
 
 from quiz_maker.mongodb_utils import insert_quiz
+from quiz_maker.models import Quiz, Source
+
 
 load_dotenv()
 
-class Source(BaseModel):
-    text: str
-    page: int
-    file_path: str
-    score: float
-
-class Quiz(BaseModel):
-    question: str
-    answer: str
-    description: str
-    sources: List[Source]
 
 def answer_question_from_pdf(pdf_file: UploadFile, learning_content: str) -> str:
     with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp:
@@ -86,9 +76,8 @@ def answer_question_from_pdf(pdf_file: UploadFile, learning_content: str) -> str
             sources=sources
         )
 
-        # # store in mongodb
-        # insert_quiz(quiz.model_dump())
-        print(f"quiz_dict: {type(quiz.model_dump())}")
+        # store in mongodb
+        insert_quiz(quiz.model_dump())
         
         return quiz
     except openai.RateLimitError as e:

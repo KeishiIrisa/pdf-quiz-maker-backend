@@ -1,12 +1,14 @@
-from fastapi import FastAPI, UploadFile, File, Form
-from quiz_maker.openai_utils import answer_question_from_pdf
-from quiz_maker.models import Quiz
-from quiz_maker.mongodb_utils import insert_quiz
+import os
+import json
+
 from dotenv import load_dotenv
 from pymongo import MongoClient
 import openai
-import os
-import json
+from fastapi import FastAPI, UploadFile, File, Form
+
+from quiz_maker.openai_utils import answer_question_from_pdf
+from quiz_maker.models import Quiz
+from quiz_maker.mongodb_utils import insert_quiz, fetch_all_quizzes
 
 load_dotenv()
 
@@ -27,6 +29,11 @@ def read_root():
 async def create_upload_file(file: UploadFile = File(...), learning_content: str = Form(...)):
     answer = answer_question_from_pdf(file, learning_content)
     return {"filename": file.filename, "answer": answer}
+
+@app.get("/quizzes/")
+async def get_all_quizzes():
+    quizzes = fetch_all_quizzes()
+    return quizzes
 
 @app.get("/test/insert_quiz")
 async def test_insert_quiz():
