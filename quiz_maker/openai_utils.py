@@ -8,16 +8,21 @@ from fastapi import UploadFile
 from pydantic import BaseModel
 import openai
 import pymupdf4llm
-from llama_index.core import GPTVectorStoreIndex, Settings, PromptTemplate
+from llama_index.core import GPTVectorStoreIndex, Settings, PromptTemplate, StorageContext, VectorStoreIndex
 from llama_index.core.base.response.schema import PydanticResponse
 from llama_index.embeddings.openai import OpenAIEmbedding
 from llama_index.llms.openai import OpenAI
+from llama_index.vector_stores.astra_db import AstraDBVectorStore
 
 from quiz_maker.mongodb_utils import insert_quiz
 from quiz_maker.models import Quiz, Source
 
 
 load_dotenv()
+
+ASTRA_DB_COLLECTION = os.environ.get("ASTRA_DB_COLLECTION")
+ASTRA_DB_API_ENDPOINT = os.environ.get("ASTRA_DB_API_ENDPOINT")
+ASTRA_DB_TOKEN = os.environ.get("ASTRA_DB_TOKEN")
 
 
 def answer_question_from_pdf(pdf_file: UploadFile, learning_content: str) -> str:
@@ -27,16 +32,27 @@ def answer_question_from_pdf(pdf_file: UploadFile, learning_content: str) -> str
     llama_reader = pymupdf4llm.LlamaMarkdownReader()
     llama_doc = llama_reader.load_data(tmp_path)
     
-    # set openai embedding model
-    Settings.embed_model = OpenAIEmbedding(model=os.getenv("OPENAI_EMBED_MODEL"))
+    # # set openai embedding model
+    # Settings.embed_model = OpenAIEmbedding(model=os.getenv("OPENAI_EMBED_MODEL"))
     
     # set structured llm
     llm = OpenAI(model=os.getenv("OPENAI_LLM_MODEL"))
     structured_llm = llm.as_structured_llm(Quiz)
     Settings.llm = structured_llm
     
-    index = GPTVectorStoreIndex.from_documents(
-        llama_doc
+    # index = GPTVectorStoreIndex.from_documents(
+    #     llama_doc
+    # )
+    astra_db_store = AstraDBVectorStore(
+        token=ASTRA_DB_TOKEN,
+        api_endpoint=ASTRA_DB_API_ENDPOINT,
+        collection_name=ASTRA_DB_COLLECTION,
+        embedding_dimension=1536
+    )
+    
+    storage_context = StorageContext.from_defaults(vector_store=astra_db_store)
+    index = VectorStoreIndex.from_documents(
+        llama_doc, storage_context=storage_context
     )
     
     # create query engine
@@ -76,8 +92,8 @@ def answer_question_from_pdf(pdf_file: UploadFile, learning_content: str) -> str
             sources=sources
         )
 
-        # store in mongodb
-        insert_quiz(quiz.model_dump())
+        # # store in mongodb
+        # insert_quiz(quiz.model_dump())
         
         return quiz
     except openai.RateLimitError as e:
