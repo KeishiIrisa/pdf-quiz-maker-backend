@@ -4,12 +4,13 @@ import json
 from dotenv import load_dotenv
 from pymongo import MongoClient
 from pydantic import BaseModel
+from typing import List
 import openai
 from fastapi import FastAPI, UploadFile, File, Form
 
 from quiz_maker.openai_utils import answer_question_by_education_resources_id
 from quiz_maker.models import Quiz
-from quiz_maker.mongodb_utils import insert_quiz, fetch_all_quizzes, insert_education_resource, add_learning_content_to_resource
+from quiz_maker.mongodb_utils import insert_quiz, fetch_all_quizzes, fetch_education_resource_by_id, fetch_quizzes_by_ids, insert_education_resource, add_learning_content_to_resource
 from quiz_maker.astradb_utils import save_vectors_to_astra
 from quiz_maker.data_processing_utils import process_pdf_file, process_from_llama_docs_to_text
 
@@ -32,6 +33,9 @@ class GenerateQuizRequest(BaseModel):
     education_resources_id: str
     learning_content: str
 
+class QuizIdsRequest(BaseModel):
+    quiz_ids: List[str]
+
 @app.get("/")
 def read_root():
     return {"Message": "Hello keishi!"}
@@ -42,10 +46,20 @@ async def generate_quiz(request: GenerateQuizRequest):
     answer = answer_question_by_education_resources_id(request.education_resources_id, request.learning_content)
     return {"answer": answer}
 
-@app.get("/quizzes/")
+@app.get("/quizzes")
 async def get_all_quizzes():
     quizzes = fetch_all_quizzes()
     return quizzes
+
+@app.post("/quizzes")
+async def get_quizzes_by_ids(quiz_ids: QuizIdsRequest):
+    quizzes = fetch_quizzes_by_ids(quiz_ids.quiz_ids)
+    return quizzes
+
+@app.get("/education_resources/{education_resources_id}")
+async def get_education_resource_by_id(education_resources_id: str):
+    education_resource = fetch_education_resource_by_id(education_resources_id)
+    return education_resource
 
 # education_resources
 @app.post("/education_resources")
