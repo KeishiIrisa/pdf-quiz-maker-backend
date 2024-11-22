@@ -1,46 +1,31 @@
 import os
-import tempfile
-import json
-from typing import List
 
 from dotenv import load_dotenv
-from fastapi import UploadFile
-from pydantic import BaseModel
 import openai
-import pymupdf4llm
-from llama_index.core import GPTVectorStoreIndex, Settings, PromptTemplate
+from llama_index.core import Settings, PromptTemplate
 from llama_index.core.base.response.schema import PydanticResponse
-from llama_index.embeddings.openai import OpenAIEmbedding
 from llama_index.llms.openai import OpenAI
 
-from quiz_maker.mongodb_utils import insert_quiz
+
+from quiz_maker.mongodb_utils import insert_quiz, add_quizzes_to_resource
 from quiz_maker.models import Quiz, Source
+from quiz_maker.astradb_utils import get_query_engine
 
 
 load_dotenv()
 
+ASTRA_DB_COLLECTION = os.environ.get("ASTRA_DB_COLLECTION")
+ASTRA_DB_API_ENDPOINT = os.environ.get("ASTRA_DB_API_ENDPOINT")
+ASTRA_DB_TOKEN = os.environ.get("ASTRA_DB_TOKEN")
 
-def answer_question_from_pdf(pdf_file: UploadFile, learning_content: str) -> str:
-    with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp:
-        tmp.write(pdf_file.file.read())
-        tmp_path = tmp.name
-    llama_reader = pymupdf4llm.LlamaMarkdownReader()
-    llama_doc = llama_reader.load_data(tmp_path)
-    
-    # set openai embedding model
-    Settings.embed_model = OpenAIEmbedding(model=os.getenv("OPENAI_EMBED_MODEL"))
-    
-    # set structured llm
+
+def answer_question_by_education_resources_id(education_resources_id: str, learning_content: str):
     llm = OpenAI(model=os.getenv("OPENAI_LLM_MODEL"))
     structured_llm = llm.as_structured_llm(Quiz)
     Settings.llm = structured_llm
     
-    index = GPTVectorStoreIndex.from_documents(
-        llama_doc
-    )
-    
     # create query engine
-    query_engine = index.as_query_engine()
+    query_engine = get_query_engine(education_resources_id)
     
     # create an prompt template
     prompt_tmpl = PromptTemplate(
@@ -77,10 +62,15 @@ def answer_question_from_pdf(pdf_file: UploadFile, learning_content: str) -> str
         )
 
         # store in mongodb
-        insert_quiz(quiz.model_dump())
+        inserted_quiz_id = insert_quiz(quiz.model_dump())
+        
+        # store quiz id to mongodb
+        add_quizzes_to_resource(education_resources_id, inserted_quiz_id)
         
         return quiz
     except openai.RateLimitError as e:
         return f"Rate limit exceeded: {e}"
     except Exception as e:
         return f"An error occurred: {e}"
+
+

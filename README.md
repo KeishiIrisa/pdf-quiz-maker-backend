@@ -1,5 +1,9 @@
 # Setup
 
+## endpoints
+
+https://pdf-quiz-maker-mef45scida-an.a.run.app/docs
+
 ## Create docker image
 
 ```

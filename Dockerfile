@@ -2,7 +2,7 @@ FROM python:3.11
 
 ENV PYTHONUNBUFFERED True \
     POETRY_VIRTUALENVS_CREATE false \
-    PORT 8000
+    PORT 8080
 
 RUN apt-get update && apt-get install -y curl poppler-utils git openssh-client
 
@@ -19,5 +19,7 @@ RUN poetry install --no-root
 
 COPY ./quiz_maker ./quiz_maker
 
+EXPOSE 8080
+
 # CMD exec uvicorn quiz_maker.main:app --host=0.0.0.0 --port=$PORT
-CMD uvicorn quiz_maker.main:app --host=0.0.0.0 --reload
+CMD ["uvicorn", "quiz_maker.main:app", "--host", "0.0.0.0", "--port", "8080"]
