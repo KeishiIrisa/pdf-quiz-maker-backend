@@ -73,10 +73,10 @@ async def create_education_resource(resource: EducationResourceCreate):
         "quizzes_ids": []
     }
     inserted_id = insert_education_resource(education_resource)
-    return {"inserted_id": inserted_id}
+    return JSONResponse(content={"inserted_id": inserted_id}, status_code=status.HTTP_201_CREATED)
 
 
-@app.put("/education-resources/{education_resource_id}/uploadfile")
+@app.put("/education-resources/{education_resource_id}/uploadfile", status_code=status.HTTP_204_NO_CONTENT)
 async def update_learning_content_from_file(education_resource_id: str, file: UploadFile = File(...)):
     llama_docs = process_pdf_file(file)
     learning_content = process_from_llama_docs_to_text(llama_docs, education_resource_id)
@@ -87,16 +87,17 @@ async def update_learning_content_from_file(education_resource_id: str, file: Up
     if success_db:
         # save vector to astraDB
         save_vectors_to_astra(llama_docs)
-    return {"filename": file.filename, "success": success_db}
+    else:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to save learning content to MongoDB")
     
 
-@app.get("/test/insert-quiz")
-async def test_insert_quiz():
-    with open('quiz_maker/quizzes_sample.json', 'r', encoding='utf-8') as file:
-        quiz_data = json.load(file)
+# @app.get("/test/insert-quiz")
+# async def test_insert_quiz():
+#     with open('quiz_maker/quizzes_sample.json', 'r', encoding='utf-8') as file:
+#         quiz_data = json.load(file)
     
-    print(type(quiz_data))
+#     print(type(quiz_data))
 
-    inserted_id = insert_quiz(quiz_data)
-    return {"inserted_id": inserted_id}
+#     inserted_id = insert_quiz(quiz_data)
+#     return {"inserted_id": inserted_id}
 
