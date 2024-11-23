@@ -1,6 +1,7 @@
 import os
 
 from dotenv import load_dotenv
+from typing import Dict
 import openai
 from llama_index.core import Settings, PromptTemplate
 from llama_index.core.base.response.schema import PydanticResponse
@@ -19,7 +20,7 @@ ASTRA_DB_API_ENDPOINT = os.environ.get("ASTRA_DB_API_ENDPOINT")
 ASTRA_DB_TOKEN = os.environ.get("ASTRA_DB_TOKEN")
 
 
-def answer_question_by_education_resources_id(education_resources_id: str, learning_content: str):
+def generate_quiz_by_education_resources_id(education_resources_id: str, learning_content: str):
     llm = OpenAI(model=os.getenv("OPENAI_LLM_MODEL"))
     structured_llm = llm.as_structured_llm(Quiz)
     Settings.llm = structured_llm
@@ -35,9 +36,11 @@ def answer_question_by_education_resources_id(education_resources_id: str, learn
     
     try:
         response_llamaindex: PydanticResponse = query_engine.query(structured_prompt)
+        print(type(response_llamaindex))
         
-        if response_llamaindex is None:
-            raise ValueError("Query returned None")
+        # query engineからのresponseがPydantic Responseでない場合は、errorを投げる
+        if not isinstance(response_llamaindex, PydanticResponse):
+            raise ValueError("Query response is Empty Response")
         
         # change each response value(response, source_nodes) to dictionary type
         response_dict = response_llamaindex.response.model_dump()
@@ -68,9 +71,10 @@ def answer_question_by_education_resources_id(education_resources_id: str, learn
         add_quizzes_to_resource(education_resources_id, inserted_quiz_id)
         
         return quiz
+    
     except openai.RateLimitError as e:
-        return f"Rate limit exceeded: {e}"
+        raise RuntimeError(f"Rate limit exceeded: {e}")
     except Exception as e:
-        return f"An error occurred: {e}"
+        raise RuntimeError(f"An error occurred: {e}")
 
 

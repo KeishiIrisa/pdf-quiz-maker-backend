@@ -12,7 +12,7 @@ class Quiz(BaseModel):
     answer: str
     description: str
     sources: List[Source]
-
+    
 class EducationResource(BaseModel):
     subject: str
     learning_contents: List[str]

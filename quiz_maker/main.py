@@ -6,9 +6,10 @@ from pymongo import MongoClient
 from pydantic import BaseModel
 from typing import List
 import openai
-from fastapi import FastAPI, UploadFile, File, Form
+from fastapi import FastAPI, UploadFile, File, status, HTTPException
+from fastapi.responses import JSONResponse
 
-from quiz_maker.openai_utils import answer_question_by_education_resources_id
+from quiz_maker.openai_utils import generate_quiz_by_education_resources_id
 from quiz_maker.models import Quiz
 from quiz_maker.mongodb_utils import insert_quiz, fetch_all_quizzes, fetch_education_resource_by_id, fetch_quizzes_by_ids, insert_education_resource, add_learning_content_to_resource
 from quiz_maker.astradb_utils import save_vectors_to_astra
@@ -40,11 +41,13 @@ class QuizIdsRequest(BaseModel):
 def read_root():
     return {"Message": "Hello keishi!"}
 
-# TODO ここをuploadfileではなく、education_resources_idとlearningcontentのみを受け取るように仕様変更する
-@app.post("/generate_quiz")
+@app.post("/quiz")
 async def generate_quiz(request: GenerateQuizRequest):
-    answer = answer_question_by_education_resources_id(request.education_resources_id, request.learning_content)
-    return {"answer": answer}
+    try:
+        quiz = generate_quiz_by_education_resources_id(request.education_resources_id, request.learning_content).model_dump()
+        return JSONResponse(content={"quiz": quiz}, status_code=status.HTTP_201_CREATED)
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
 
 @app.get("/quizzes")
 async def get_all_quizzes():
@@ -56,13 +59,13 @@ async def get_quizzes_by_ids(quiz_ids: QuizIdsRequest):
     quizzes = fetch_quizzes_by_ids(quiz_ids.quiz_ids)
     return quizzes
 
-@app.get("/education_resources/{education_resources_id}")
+# education_resources
+@app.get("/education-resources/{education_resources_id}")
 async def get_education_resource_by_id(education_resources_id: str):
     education_resource = fetch_education_resource_by_id(education_resources_id)
     return education_resource
 
-# education_resources
-@app.post("/education_resources")
+@app.post("/education-resources")
 async def create_education_resource(resource: EducationResourceCreate):
     education_resource = {
         "subject": resource.subject,
@@ -73,7 +76,7 @@ async def create_education_resource(resource: EducationResourceCreate):
     return {"inserted_id": inserted_id}
 
 
-@app.put("/education_resources/{education_resource_id}/uploadfile")
+@app.put("/education-resources/{education_resource_id}/uploadfile")
 async def update_learning_content_from_file(education_resource_id: str, file: UploadFile = File(...)):
     llama_docs = process_pdf_file(file)
     learning_content = process_from_llama_docs_to_text(llama_docs, education_resource_id)
@@ -87,7 +90,7 @@ async def update_learning_content_from_file(education_resource_id: str, file: Up
     return {"filename": file.filename, "success": success_db}
     
 
-@app.get("/test/insert_quiz")
+@app.get("/test/insert-quiz")
 async def test_insert_quiz():
     with open('quiz_maker/quizzes_sample.json', 'r', encoding='utf-8') as file:
         quiz_data = json.load(file)

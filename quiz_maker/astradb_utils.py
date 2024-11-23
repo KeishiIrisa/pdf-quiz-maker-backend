@@ -27,8 +27,6 @@ def save_vectors_to_astra(llama_docs):
     return index
 
 def get_query_engine(education_resources_id: str):
-
-   
     astra_db_store = AstraDBVectorStore(
         token=ASTRA_DB_TOKEN,
         api_endpoint=ASTRA_DB_API_ENDPOINT,
