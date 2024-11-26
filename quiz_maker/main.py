@@ -14,7 +14,7 @@ from quiz_maker.openai_utils import generate_quiz_by_education_resources_id
 from quiz_maker.models import Quiz
 from quiz_maker.mongodb_utils import fetch_education_resources, fetch_education_resource_by_id, fetch_quiz_by_id, insert_education_resource, add_learning_document_id_to_resource, insert_learning_document, fetch_learning_document_by_id
 from quiz_maker.astradb_utils import save_vectors_to_astra
-from quiz_maker.data_processing_utils import process_pdf_file, process_from_llama_docs_to_text
+from quiz_maker.data_processing_utils import process_pdf_file, process_from_llama_docs_to_text, process_markdown_to_html
 
 load_dotenv()
 
@@ -56,6 +56,9 @@ class GenerateQuizRequest(BaseModel):
 
 class QuizIdsRequest(BaseModel):
     quiz_ids: List[str]
+    
+class MarkdownRequest(BaseModel):
+    markdown: str
 
 @app.get("/")
 def read_root():
@@ -144,5 +147,10 @@ async def update_learning_content_from_file(education_resource_id: str, file: Up
         # save vector to astraDB
         save_vectors_to_astra(llama_docs)
     else:
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to save learning content to MongoDB")
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to save learning_document_inserted_id to education_resource")
+    
+@app.post("/test/markdown")
+async def change_to_html(request: MarkdownRequest):
+    html = process_markdown_to_html(request.markdown)
+    return {"html": html}
     
