@@ -10,7 +10,7 @@ from fastapi import FastAPI, UploadFile, File, status, HTTPException, Query
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 
-from quiz_maker.openai_utils import generate_quiz_by_education_resources_id
+from quiz_maker.openai_utils import generate_quiz_by_education_resources_id, generate_html_from_text
 from quiz_maker.models import Quiz
 from quiz_maker.mongodb_utils import fetch_education_resources, fetch_education_resource_by_id, fetch_quiz_by_id, insert_education_resource, add_learning_document_id_to_resource, insert_learning_document, fetch_learning_document_by_id
 from quiz_maker.astradb_utils import save_vectors_to_astra
@@ -126,9 +126,10 @@ async def create_education_resource(resource: EducationResourceCreate):
 @app.put("/education-resources/{education_resource_id}/uploadfile", status_code=status.HTTP_204_NO_CONTENT)
 async def update_learning_content_from_file(education_resource_id: str, file: UploadFile = File(...)):
     llama_docs = process_pdf_file(file)
+    raw_text = process_from_llama_docs_to_text(llama_docs, education_resource_id)
     learning_document = {
         "title": file.filename,
-        "content": process_from_llama_docs_to_text(llama_docs, education_resource_id),
+        "content": generate_html_from_text(raw_text),
         "metadata": {}
     }
     
@@ -153,4 +154,10 @@ async def update_learning_content_from_file(education_resource_id: str, file: Up
 async def change_to_html(request: MarkdownRequest):
     html = process_markdown_to_html(request.markdown)
     return {"html": html}
-    
+
+@app.get("/test/html")
+async def change_to_html():
+    raw_text = """
+    経済思想概論1 §古代ギリシャのアテネは，商業の発展や他都市との覇権争いのなかで，様々な政治改革を経験する。§プラトンは『国家』で，政治体制の変化を理論化し，知性によって軍人や商人を管理する理想的な国家像を示す。政治指導者の私有財産を禁止するよう提言。§アリストテレスは，プラトンの急進的な考えを批判。「目的」に対応した「自然」な社会体制を議論する。ただし，商業には批判的。
+    """
+    return {"html": generate_html_from_text(raw_text)}
