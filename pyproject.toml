@@ -19,6 +19,8 @@ pymongo = {version = "3.11", extras = ["srv"]}
 astrapy = ">=1.5,<2.0"
 llama-index-vector-stores-astra-db = "^0.4.0"
 certifi = "^2024.8.30"
+markdown = "^3.7"
+llama-index-readers-file = "^0.4.0"
 
 
 [build-system]

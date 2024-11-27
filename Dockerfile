@@ -21,5 +21,8 @@ COPY ./quiz_maker ./quiz_maker
 
 EXPOSE 8080
 
-# CMD exec uvicorn quiz_maker.main:app --host=0.0.0.0 --port=$PORT
-CMD ["uvicorn", "quiz_maker.main:app", "--host", "0.0.0.0", "--port", "8080"]
+# # product
+# CMD ["uvicorn", "quiz_maker.main:app", "--host", "0.0.0.0", "--port", "8080"]
+
+# dev
+CMD ["uvicorn", "quiz_maker.main:app", "--host", "0.0.0.0", "--port", "8080", "--reload"]

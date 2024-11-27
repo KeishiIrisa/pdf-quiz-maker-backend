@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List
+from typing import List, Dict
 
 class Source(BaseModel):
     text: str
@@ -12,8 +12,13 @@ class Quiz(BaseModel):
     answer: str
     description: str
     sources: List[Source]
-
+    
 class EducationResource(BaseModel):
     subject: str
-    learning_contents: List[str]
+    learning_documents_ids: List[str]
     quizzes_ids: List[str] # MongoDB's Objectid(str)
+    
+class LearningDocument(BaseModel):
+    title: str
+    content: str
+    metadata: Dict[str, str]
