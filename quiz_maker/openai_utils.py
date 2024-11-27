@@ -4,18 +4,16 @@ import re
 from dotenv import load_dotenv
 from pydantic import BaseModel
 from typing import Dict
+import openai
 from llama_index.core import Settings, PromptTemplate
 from llama_index.core.base.response.schema import PydanticResponse
-from llama_index.llms.openai import OpenAI
+from llama_index.llms.openai import OpenAI as OpenAILlamaIndex
 
 
 from quiz_maker.mongodb_utils import insert_quiz, add_quizzes_to_resource
 from quiz_maker.models import Quiz, Source
 from quiz_maker.astradb_utils import get_query_engine
-
 from openai import OpenAI
-client = OpenAI()
-
 
 load_dotenv()
 
@@ -27,10 +25,11 @@ class Html(BaseModel):
     html: str
 
 def generate_html_from_text(text: str) -> str:
+    client = OpenAI()
     completion = client.beta.chat.completions.parse(
         model="gpt-4o-mini",
         messages=[
-            {"role": "system", "content": "あなたは与えられたテキストを受け取り、視覚的に理解しやすいようにhtmlの形式で出力するアシスタントです。重要な部分が理解しやすいように、cssでの装飾や、表、段落の利用も必要ならば行なってください。ただし元となる受け取った文章は必ず全て改変することなく出力してください。htmlは一番外側をdivタグにすること。出力形式は与えられた形式に従うこと"},
+            {"role": "system", "content": "あなたは与えられたテキストを受け取り、視覚的に理解しやすいようにhtmlの形式で出力するアシスタントです。重要な部分が理解しやすいように、表、段落、太字の利用も必要ならば行なってください。ただし元となる受け取った文章は必ず全て改変することなく出力してください。htmlは一番外側をdivタグにすること。出力形式は与えられた形式に従うこと"},
             {"role": "user", "content": text}
         ],
         response_format=Html,
@@ -45,7 +44,7 @@ def generate_html_from_text(text: str) -> str:
 
 
 def generate_quiz_by_education_resources_id(education_resources_id: str, learning_content: str):
-    llm = OpenAI(model=os.getenv("OPENAI_LLM_MODEL"))
+    llm = OpenAILlamaIndex(model=os.getenv("OPENAI_LLM_MODEL"))
     structured_llm = llm.as_structured_llm(Quiz)
     Settings.llm = structured_llm
     
@@ -60,7 +59,6 @@ def generate_quiz_by_education_resources_id(education_resources_id: str, learnin
     
     try:
         response_llamaindex: PydanticResponse = query_engine.query(structured_prompt)
-        print(type(response_llamaindex))
         
         # query engineからのresponseがPydantic Responseでない場合は、errorを投げる
         if not isinstance(response_llamaindex, PydanticResponse):
@@ -73,8 +71,8 @@ def generate_quiz_by_education_resources_id(education_resources_id: str, learnin
         sources = [
             Source(
                 text=source_node["node"]["text"],
-                page=source_node["node"]["relationships"]["1"]["metadata"]["page"],
-                file_path=source_node["node"]["relationships"]["1"]["metadata"]["file_path"],
+                page=source_node["node"]["relationships"]["1"]["metadata"]["page_label"],
+                file_path=source_node["node"]["relationships"]["1"]["metadata"]["file_name"],
                 score=source_node["score"]
             )
             for source_node in source_nodes_dict

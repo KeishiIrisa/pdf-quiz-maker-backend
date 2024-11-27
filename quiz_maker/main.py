@@ -68,7 +68,7 @@ def read_root():
 async def generate_quiz(request: GenerateQuizRequest):
     try:
         quiz = generate_quiz_by_education_resources_id(request.education_resources_id, request.learning_content).model_dump()
-        return JSONResponse(content={"quiz": quiz}, status_code=status.HTTP_201_CREATED)
+        return JSONResponse(content=quiz, status_code=status.HTTP_201_CREATED)
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
 
