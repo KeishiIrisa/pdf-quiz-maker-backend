@@ -4,7 +4,7 @@ https://vimeo.com/1033767434/3599020358?share=copy
 ## Product
 https://pdf-quiz-maker.vercel.app/
 
-## endpoints(in-progress)
+## Endpoints
 https://pdf-quiz-maker-mef45scida-an.a.run.app/docs
 
 ## TechStack
